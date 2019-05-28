@@ -14,3 +14,5 @@ ill mention step by step the methods needed to complete the algorithm and their 
  the whole encode operation takes O(n) * log(n) as worst case scenario
  
  to decode the tree recurssion is used, the method iterates through the entire encoded string and traverses the tree finding the desired value on the branch the time and space complexity for this operation is O(n)
+
+Conclution : Encode -> O((n) * log(n)),  Decode O(n)
