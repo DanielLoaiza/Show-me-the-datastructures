@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[3]:
 
 
 class Node:
@@ -123,30 +123,44 @@ def test2():
     print ("union", union(linked_list_3,linked_list_4))
     print ("intersection",intersection(linked_list_3,linked_list_4))
     
+def test3():
+    print("test 3")
+    # Test case 3
+    linked_list_3 = LinkedList()
+    linked_list_4 = LinkedList()
+
+    element_1 = []
+    element_2 = []
+
+    for i in element_1:
+        linked_list_3.append(i)
+
+    for i in element_2:
+        linked_list_4.append(i)
+
+    print ("union", union(linked_list_3,linked_list_4))
+    print ("intersection",intersection(linked_list_3,linked_list_4))
+    
+def test4():
+    print("test 4")
+    # Test case 4
+    linked_list_3 = LinkedList()
+    linked_list_4 = LinkedList()
+
+    element_1 = [3,2,4,35,6,65,6,4,3,23]
+    element_2 = []
+
+    for i in element_1:
+        linked_list_3.append(i)
+
+    for i in element_2:
+        linked_list_4.append(i)
+
+    print ("union", union(linked_list_3,linked_list_4))
+    print ("intersection",intersection(linked_list_3,linked_list_4))
+    
 test1()
 test2()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+test3()
+test4()
 

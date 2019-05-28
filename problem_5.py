@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[88]:
+# In[21]:
 
 
 from datetime import datetime
@@ -39,6 +39,8 @@ class BlockChain:
             tail = self.tail
             block = Block(str(datetime.now().timestamp()), data, tail)
             self.tail = block
+            
+        return self.tail
     
     def print_blockchain(self):
         tail = self.tail
@@ -47,6 +49,7 @@ class BlockChain:
             tail = tail.previous_hash
             
 def test_blockchain():
+    #block created
     blockchain = BlockChain()
     blockchain.add_block("hey")
     blockchain.add_block("ho")
@@ -54,11 +57,42 @@ def test_blockchain():
     blockchain.add_block("go")
     blockchain.print_blockchain()
     
+def test_blockchain_1():
+    #hash matching
+    blockchain = BlockChain()
+    blockchain.add_block("hey")
+    blockchain.add_block("ho")
+    blockchain.add_block("lets")
+    blockchain.add_block("go")
+    after = blockchain.tail
+    current = blockchain.tail.previous_hash
+    while current is not None:
+        current_hash = current.hash
+        if after.previous_hash.hash != current_hash:
+            return "Not Passed"
+        after = current
+        current = current.previous_hash
+    
+    return "Passed"
+    
+def test_blockchain_2():
+    #head is the one created before
+    blockchain = BlockChain()
+    start = blockchain.add_block("hey")
+    blockchain.add_block("ho")
+    blockchain.add_block("lets")
+    blockchain.add_block("go")
+    
+    current = blockchain.tail
+    while current.previous_hash is not None:
+        current = current.previous_hash
+        
+    if current == start :
+        return "Passed"
+    else: 
+        return "Not Passed"
+    
 test_blockchain()
-
-
-# In[ ]:
-
-
-
+print(test_blockchain_1())
+print(test_blockchain_2())
 

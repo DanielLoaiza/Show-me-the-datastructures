@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[28]:
 
 
 import sys
@@ -17,33 +17,37 @@ class Tree:
         self.root = root
         
 def huffman_encoding(data):
-    frequencies = charactersFrequencies(data)
-    sortedFrequenciesList = sortFrequencies(frequencies)
-    mappedSortedFrequencies =  list(map(lambda x: Node(x[0], x[1]), sortedFrequenciesList))
-    tree = None
+    if not data:
+        return data, None
     
-    while(len(mappedSortedFrequencies) > 1):
-        firstElement = mappedSortedFrequencies.pop(0)
-        secondElement = mappedSortedFrequencies.pop(0)
-        rootNode = Node(firstElement.value + secondElement.value, firstElement.value + secondElement.value)
-        rootNode.left = firstElement
-        rootNode.right = secondElement
-        insertElementIntoList(rootNode, mappedSortedFrequencies)
-        if(len(mappedSortedFrequencies) == 0):
-            tree = Tree(rootNode)
+    else:
+        frequencies = charactersFrequencies(data)
+        sortedFrequenciesList = sortFrequencies(frequencies)
+        mappedSortedFrequencies =  list(map(lambda x: Node(x[0], x[1]), sortedFrequenciesList))
+        tree = None
     
-    if(tree is None):
-        tree = Tree(Node(1, 1))
-        tree.root.left = Node(data[0], 1)
+        while(len(mappedSortedFrequencies) > 1):
+            firstElement = mappedSortedFrequencies.pop(0)
+            secondElement = mappedSortedFrequencies.pop(0)
+            rootNode = Node(firstElement.value + secondElement.value, firstElement.value + secondElement.value)
+            rootNode.left = firstElement
+            rootNode.right = secondElement
+            insertElementIntoList(rootNode, mappedSortedFrequencies)
+            if(len(mappedSortedFrequencies) == 0):
+                tree = Tree(rootNode)
+        if tree is None and len(mappedSortedFrequencies) == 1:
+            firstElement = mappedSortedFrequencies.pop(0)
+            tree = Tree(Node(firstElement.value, firstElement.value))
+            tree.root.left = Node(firstElement.key, firstElement.value)
         
-    encodedChars = dict()
-    encodeTree(tree.root, "", encodedChars)
-    encodedString = ""
-    for char in data :
-        encodedString += encodedChars[char]
-    return encodedString , tree
-    pass
-
+        encodedChars = dict()
+        encodeTree(tree.root, "", encodedChars)
+        encodedString = ""
+        for char in data :
+            encodedString += encodedChars[char]
+        return encodedString , tree
+        pass
+    
 def insertElementIntoList(node, sortedFrequencies):
     for index, element in enumerate(sortedFrequencies):
         if node.value < element.value:
@@ -65,6 +69,8 @@ def encodeTree(root, string, hoffmanEncodes):
         
 
 def huffman_decoding(data,root):
+    if(root is None):
+        return data
     def decode(data, root, index, decodedString):
         if(root.left is None and root.right is None):
             decodedString += root.key
@@ -91,9 +97,8 @@ def sortFrequencies(data):
     items.sort(key=lambda x: x[1])
     return items
 
-if __name__ == "__main__":
-    codes = {}
-
+    
+def test1():
     a_great_sentence = "The bird is a word"
 
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
@@ -109,5 +114,207 @@ if __name__ == "__main__":
     
     print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print ("The content of the decoded data is: {}\n".format(decoded_data))
+
+def test2():
+    a_great_sentence = ""
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print ("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
     
+    #data not encoded
+    if not encoded_data and not tree:
+        print("success", "data not encoded")
+        
+
+def test3():
+    a_great_sentence = "AAAAAAA"
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print ("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+    
+    decoded_data = huffman_decoding(encoded_data, tree.root)
+    
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the decoded data is: {}\n".format(decoded_data))
+    
+test1()
+test2()
+test3()
+    
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
